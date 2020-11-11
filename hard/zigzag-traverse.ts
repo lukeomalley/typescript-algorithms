@@ -24,30 +24,23 @@ function zigZagTraverse(array: number[][]): number[] {
         col -= 1;
         row += 1;
       }
-    } else {
-      if (col === width || row === 0) {
-        goingDown = !goingDown;
-        if (col === width) {
-          row += 1;
-        } else {
-          col += 1;
-        }
+    } else if (col === width || row === 0) {
+      goingDown = !goingDown;
+      if (col === width) {
+        row += 1;
       } else {
-        row -= 1;
         col += 1;
       }
+    } else {
+      row -= 1;
+      col += 1;
     }
   }
 
   return result;
 }
 
-function outOfBounds(
-  row: number,
-  col: number,
-  height: number,
-  width: number
-): boolean {
+function outOfBounds(row: number, col: number, height: number, width: number): boolean {
   return row > height || row < 0 || col > width || col < 0;
 }
 
@@ -60,5 +53,5 @@ console.log(
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
-  ])
+  ]),
 );
