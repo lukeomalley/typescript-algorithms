@@ -1,4 +1,4 @@
-import { performance } from 'perf_hooks';
+import evalFunctionPerformance from '../lib/evalFunctionPerformance';
 
 function maxSumIncreasingSubsequence(array: number[]): [number, number[]] {
   const sums = array.map((n) => n);
@@ -35,7 +35,9 @@ function maxSumIncreasingSubsequence(array: number[]): [number, number[]] {
   return [maxSum, maxSequence];
 }
 
-const t0 = performance.now();
+// =============================================================================
+// Tests
+// =============================================================================
+
 console.log(maxSumIncreasingSubsequence([10, 70, 20, 30, 50, 11, 30]));
-const t1 = performance.now();
-console.log(`Took ${(t1 - t0).toFixed(3)} ms to run.`);
+evalFunctionPerformance(maxSumIncreasingSubsequence, [10, 70, 20, 30, 50, 11, 30]);

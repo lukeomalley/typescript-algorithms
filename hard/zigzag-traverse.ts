@@ -1,3 +1,5 @@
+import evalFunctionPerformance from '../lib/evalFunctionPerformance';
+
 // O(n) Time | O(n) Space
 function zigZagTraverse(array: number[][]): number[] {
   const height = array.length - 1;
@@ -44,10 +46,6 @@ function outOfBounds(row: number, col: number, height: number, width: number): b
   return row > height || row < 0 || col > width || col < 0;
 }
 
-// =============================================================================
-// Tests
-// =============================================================================
-
 console.log(
   zigZagTraverse([
     [1, 2, 3],
@@ -55,3 +53,8 @@ console.log(
     [7, 8, 9],
   ]),
 );
+evalFunctionPerformance(zigZagTraverse, [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+]);
