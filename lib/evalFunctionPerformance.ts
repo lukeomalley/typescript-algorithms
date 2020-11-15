@@ -2,7 +2,7 @@ import { performance } from 'perf_hooks';
 
 export default function evalFunctionPerfoamance(fun: Function, ...args: any[]) {
   const t0 = performance.now();
-  fun(args);
+  fun(...args);
   const t1 = performance.now();
   const used = process.memoryUsage().heapUsed / 1024 / 1024;
 
