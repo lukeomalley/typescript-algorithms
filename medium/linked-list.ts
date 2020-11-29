@@ -1,5 +1,3 @@
-import evalFunctionPerformance from '../lib/evalFunctionPerformance';
-
 /**
  * Doubly Linked List
  *
@@ -21,47 +19,57 @@ import evalFunctionPerformance from '../lib/evalFunctionPerformance';
  * this scenario.
  *
  */
-class DoublyLinkedList {
-  head: Node | null;
 
-  tail: Node | null;
+// This is an input class. Do not edit.
+class LLNode {
+  value: number;
+
+  prev: LLNode | null;
+
+  next: LLNode | null;
+
+  constructor(value: number) {
+    this.value = value;
+    this.prev = null;
+    this.next = null;
+  }
+}
+
+class DoublyLinkedList {
+  head: LLNode | null;
+
+  tail: LLNode | null;
 
   constructor() {
     this.head = null;
     this.tail = null;
   }
 
-  setHead(node: Node): DoublyLinkedList {
-    if (!this.head) {
+  setHead(node: LLNode) {
+    if (this.head === null) {
       this.head = node;
       this.tail = node;
-      return this;
+      return;
     }
 
-    return this.insertBefore(this.head, node);
+    this.insertBefore(this.head, node);
   }
 
-  // 1 <-> 2 <-> 3 <-> 4
-  // 1 <-> 2 <-> 3 <-> 4 <-> 5
-  setTail(node: Node) {
-    if (!this.tail) {
-      return this.setHead(node);
+  setTail(node: LLNode) {
+    if (this.tail === null) {
+      this.setHead(node);
+      return;
     }
 
-    this.tail.next = node;
-    node.prev = this.tail;
-    this.tail = node;
-
-    return this;
+    this.insertAfter(this.tail, node);
   }
 
-  // 1 <-> 2 <-> 3 <-> 4
-  // 1 <-> 5 <-> 2 <-> 3 <-> 4
-  insertBefore(node: Node, nodeToInsert: Node): DoublyLinkedList {
+  insertBefore(node: LLNode, nodeToInsert: LLNode) {
     if (nodeToInsert === this.head && nodeToInsert === this.tail) {
-      return this;
+      return;
     }
 
+    this.remove(nodeToInsert);
     nodeToInsert.prev = node.prev;
     nodeToInsert.next = node;
 
@@ -72,49 +80,45 @@ class DoublyLinkedList {
     }
 
     node.prev = nodeToInsert;
-
-    return this;
   }
 
-  // 1 <-> 2 <-> 3 <-> 4
-  // 1 <-> 2 <-> 3 <-> 5 <-> 4
-  insertAfter(node: Node, nodeToInsert: Node): DoublyLinkedList {
+  insertAfter(node: LLNode, nodeToInsert: LLNode) {
     if (nodeToInsert === this.tail && nodeToInsert === this.head) {
-      return this;
+      return;
     }
 
-    // TODO: First try to remove the node
+    this.remove(nodeToInsert);
     nodeToInsert.prev = node;
     nodeToInsert.next = node.next;
 
-    if (!node.next) {
+    if (node.next === null) {
       this.tail = nodeToInsert;
     } else {
       node.next.prev = nodeToInsert;
     }
 
     node.next = nodeToInsert;
-
-    return this;
   }
 
-  insertAtPosition(position: number, nodeToInsert: Node): DoublyLinkedList {
+  insertAtPosition(position: number, nodeToInsert: LLNode) {
     if (position === 1) {
-      return this.setHead(nodeToInsert);
+      this.setHead(nodeToInsert);
+      return;
     }
 
     const node = this.findAtPosition(position);
 
     if (node !== null) {
-      return this.insertBefore(node, nodeToInsert);
+      this.insertBefore(node, nodeToInsert);
+      return;
     }
 
-    return this.setTail(nodeToInsert);
+    this.setTail(nodeToInsert);
   }
 
-  removeNodesWithValue(value: number): DoublyLinkedList {
+  removeNodesWithValue(value: number) {
     let node = this.head;
-    while (node) {
+    while (node !== null) {
       const nodeToRemove = node;
       node = node.next;
 
@@ -122,11 +126,9 @@ class DoublyLinkedList {
         this.remove(nodeToRemove);
       }
     }
-
-    return this;
   }
 
-  remove(node: Node): DoublyLinkedList {
+  remove(node: LLNode) {
     if (node === this.head) {
       this.head = this.head.next;
     }
@@ -135,34 +137,20 @@ class DoublyLinkedList {
       this.tail = this.tail.prev;
     }
 
-    return this.removeNodeBindings(node);
-  }
-
-  private removeNodeBindings(node: Node): DoublyLinkedList {
-    if (node.prev) {
-      node.prev.next = node.next;
-    }
-    if (node.next) {
-      node.next.prev = node.prev;
-    }
-
-    node.prev = null;
-    node.next = null;
-
-    return this;
+    removeNodeBindings(node);
   }
 
   containsNodeWithValue(value: number): boolean {
     let node = this.head;
 
-    while (node && node.value !== value) {
+    while (node !== null && node.value !== value) {
       node = node.next;
     }
 
     return node !== null;
   }
 
-  private findAtPosition(position: number): Node | null {
+  private findAtPosition(position: number): LLNode | null {
     let node = this.head;
     let currentPosition = 1;
     while (node !== null && currentPosition < position) {
@@ -174,36 +162,33 @@ class DoublyLinkedList {
   }
 }
 
-// This is an input class. Do not edit.
-class Node {
-  value: number;
-
-  prev: Node | null;
-
-  next: Node | null;
-
-  constructor(value: number) {
-    this.value = value;
-    this.prev = null;
-    this.next = null;
+function removeNodeBindings(node: LLNode) {
+  if (node.prev !== null) {
+    node.prev.next = node.next;
   }
+  if (node.next !== null) {
+    node.next.prev = node.prev;
+  }
+
+  node.prev = null;
+  node.next = null;
 }
 
 // =============================================================================
 // Tests
 // =============================================================================
 
-function bindNodes(nodeOne: Node, nodeTwo: Node) {
+function bindNodes(nodeOne: LLNode, nodeTwo: LLNode) {
   nodeOne.next = nodeTwo;
   nodeTwo.prev = nodeOne;
 }
 
 const linkedList = new DoublyLinkedList();
-const one = new Node(1);
-const two = new Node(2);
-const three = new Node(3);
-const four = new Node(4);
-const five = new Node(5);
+const one = new LLNode(1);
+const two = new LLNode(2);
+const three = new LLNode(3);
+const four = new LLNode(4);
+const five = new LLNode(5);
 bindNodes(one, two);
 bindNodes(two, three);
 bindNodes(three, four);
