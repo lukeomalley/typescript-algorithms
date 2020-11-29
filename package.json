@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ts-node hard/disk-stacking"
+    "test": "ts-node easy/run-length-encoding"
   },
   "author": "",
   "license": "ISC",
