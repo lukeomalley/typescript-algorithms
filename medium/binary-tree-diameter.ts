@@ -15,10 +15,9 @@ import evalFunctionPerformance from '../lib/evalFunctionPerformance';
  * a right child node. Children nodes cna either be BinaryTree nodes
  * themselves or null
  *
- * Time:
- * Space:
+ * Time: O(n)
+ * Space: O(n)
  */
-
 class BinaryTree {
   public right: BinaryTree | null;
 
@@ -30,14 +29,38 @@ class BinaryTree {
   }
 }
 
+interface TreeInfo {
+  diameter: number;
+  height: number;
+}
+
 function binaryTreeDiameter(tree: BinaryTree): number {
-  console.log(tree);
-  return -1;
+  return getTreeInfo(tree).diameter;
+}
+
+function getTreeInfo(tree: BinaryTree | null): TreeInfo {
+  if (!tree) {
+    return { diameter: 0, height: 0 };
+  }
+
+  // Recurse down the tree (DFS)
+  const leftTreeData = getTreeInfo(tree.left);
+  const rightTreeData = getTreeInfo(tree.right);
+
+  // Find the current height height and
+  const longestPathThroughRoot = rightTreeData.height + leftTreeData.height;
+  const maxDiameterSoFar = Math.max(leftTreeData.diameter, rightTreeData.diameter);
+
+  const currentDiameter = Math.max(longestPathThroughRoot, maxDiameterSoFar);
+  const currentHeight = 1 + Math.max(leftTreeData.height, rightTreeData.height);
+
+  return { diameter: currentDiameter, height: currentHeight };
 }
 
 // =============================================================================
 // Tests
 // =============================================================================
+
 const root = new BinaryTree(1);
 root.left = new BinaryTree(3);
 root.left.left = new BinaryTree(7);
@@ -49,4 +72,4 @@ root.left.right.right.right = new BinaryTree(6);
 root.right = new BinaryTree(2);
 
 console.log(binaryTreeDiameter(root));
-// evalFunctionPerformance(binaryTreeDiameter, 'AAABBBBBBBBBCCCCCCCCCCCC');
+evalFunctionPerformance(binaryTreeDiameter, root);
