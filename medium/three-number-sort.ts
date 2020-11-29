@@ -15,6 +15,9 @@ import evalFunctionPerformance from '../lib/evalFunctionPerformance';
  *
  * Input: [1, 0, 0, -1, -1, 0, 1, 1], [0, 1, -1]
  * Output: [0, 0, 0, 1, 1, 1, -1, -1]
+ *
+ * Time: O(n)
+ * Space: O(1)
  */
 function threeNumberSort(array: number[], order: number[]): number[] {
   // Forward pass
