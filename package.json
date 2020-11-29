@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ts-node easy/run-length-encoding"
+    "test": "ts-node medium/binary-tree-diameter"
   },
   "author": "",
   "license": "ISC",
