@@ -3,31 +3,53 @@ import evalFunctionPerformance from '../lib/evalFunctionPerformance';
 /**
  * Three Number Sort
  *
- * You're given a non-empty array of arrays where each subarray holds three
- * integers and represents a disk. These integers denote each disk's width,
- * depth, and height, respectively. Your goal is to stack up the disks and to
- * maximize the total height of the stack. A disk must have a strictly smaller
- * width, depth, and height than any other disk below it.
+ * You're given an array of integers and another array of three distinct integers.
+ * The first array is guaranteed to only contain integers that are in the second
+ * array, and the second array represents the desired order for the integers in
+ * the first array. For example, a second array of [x, y, z] represents a desired
+ * order of [x, x, ..., y, y, y, y ..., z, z, z]
  *
- * Write a function that returns an array of the disks in the final stack,
- * starting with the top disk and ending with the bottom disk. Note that you
- * can't rotate disks; in other words, the integers in each subarray must
- * represent [width, depth, height] at all times.
+ * Write a function that sorts the first array according to the desired order
+ * of the second array. The function should preform this in place, and it should
+ * not use any auxiliary space.
  *
- * You can assume that there will only be one stack with the greatest total height.
- *
- * Input: [[2, 1, 2], [3, 2, 3], [2, 2, 8], [2, 3, 4], [1, 3, 1], [4, 4, 5]]
- * Output: [[2, 1, 2], [3, 2, 3], [4, 4, 5]]
+ * Input: [1, 0, 0, -1, -1, 0, 1, 1], [0, 1, -1]
+ * Output: [0, 0, 0, 1, 1, 1, -1, -1]
  */
 function threeNumberSort(array: number[], order: number[]): number[] {
-  console.log(array);
-  console.log(order);
-  return [];
+  // Forward pass
+  let firstIdx = 0;
+  for (let i = 0; i < array.length; i++) {
+    const currentNumber = array[i];
+    if (currentNumber === order[0]) {
+      swapElements(array, firstIdx, i);
+      firstIdx += 1;
+    }
+  }
+
+  // Reverse pass
+  let lastIdx = array.length - 1;
+  for (let i = array.length - 1; i >= 0; i--) {
+    const currentNumber = array[i];
+    if (currentNumber === order[2]) {
+      swapElements(array, lastIdx, i);
+      lastIdx -= 1;
+    }
+  }
+
+  return array;
+}
+
+function swapElements(array: number[], i: number, j: number): number[] {
+  const tmp = array[i];
+  array[i] = array[j];
+  array[j] = tmp;
+  return array;
 }
 
 // =============================================================================
 // Tests
 // =============================================================================
 
-console.log(threeNumberSort([0, 1, 1, 1, 1, -1, -1, -1, 1, 1, 0, -1, -1, 0, 0, 0], [-1, 0, 1]));
-evalFunctionPerformance(threeNumberSort, [0, 1, 1, 1, 1, -1, -1, -1, 1, 1, 0, -1, -1, 0, 0, 0], [-1, 0, 1]);
+console.log(threeNumberSort([1, 0, 0, -1, -1, 0, 1, 1], [0, 1, -1]));
+// evalFunctionPerformance(threeNumberSort, [1, 0, 0, -1, -1, 0, 1, 1], [0, 1, -1])
