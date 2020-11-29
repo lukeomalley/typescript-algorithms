@@ -23,7 +23,54 @@ type Disk = [number, number, number];
  * Output: [[2, 1, 2], [3, 2, 3], [4, 4, 5]]
  */
 function diskStacking(disks: Disk[]) {
-  return disks;
+  const disksSortedByHeight = disks.sort((a, b) => a[2] - b[2]);
+  const heights = disksSortedByHeight.map((d) => d[2]);
+  const sequence = new Array(heights.length);
+  let maxHeightIndex = 0;
+
+  for (let i = 1; i < disksSortedByHeight.length; i++) {
+    const currentDisk = disksSortedByHeight[i];
+
+    // Iterate through all the shorter disks
+    for (let j = 0; j < i; j++) {
+      const otherDisk = disksSortedByHeight[j];
+      if (diskCanStack(currentDisk, otherDisk) && makesStackTaller(currentDisk, heights[i], heights[j])) {
+        heights[i] = currentDisk[2] + heights[j];
+        sequence[i] = j;
+      }
+    }
+
+    if (heights[i] >= heights[maxHeightIndex]) {
+      maxHeightIndex = i;
+    }
+  }
+  console.log(heights);
+
+  return findStackedDisks(disksSortedByHeight, sequence, maxHeightIndex);
+}
+
+// =============================================================================
+// Helper Functions
+// =============================================================================
+
+function diskCanStack(baseDisk: Disk, potentialStack: Disk): boolean {
+  return baseDisk[0] > potentialStack[0] && baseDisk[1] > potentialStack[1] && baseDisk[2] > potentialStack[2];
+}
+
+function makesStackTaller(currentDisk: Disk, currentHeight: number, otherHeight: number): boolean {
+  return currentHeight <= currentDisk[2] + otherHeight;
+}
+
+function findStackedDisks(disks: Disk[], sequence: number[], startingIndex: number): Disk[] {
+  const stackedDisks: Disk[] = [];
+
+  let currentIndex = startingIndex;
+  while (currentIndex !== undefined) {
+    stackedDisks.unshift(disks[currentIndex]);
+    currentIndex = sequence[currentIndex];
+  }
+
+  return stackedDisks;
 }
 
 // =============================================================================
