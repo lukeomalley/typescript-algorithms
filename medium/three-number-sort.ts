@@ -55,4 +55,4 @@ function swapElements(array: number[], i: number, j: number): number[] {
 // =============================================================================
 
 console.log(threeNumberSort([1, 0, 0, -1, -1, 0, 1, 1], [0, 1, -1]));
-// evalFunctionPerformance(threeNumberSort, [1, 0, 0, -1, -1, 0, 1, 1], [0, 1, -1])
+evalFunctionPerformance(threeNumberSort, [1, 0, 0, -1, -1, 0, 1, 1], [0, 1, -1]);
