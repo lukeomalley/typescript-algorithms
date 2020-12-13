@@ -2,6 +2,7 @@ import evalFunctionPerformance from '../lib/evalFunctionPerformance';
 
 /**
  * Numbers in Pi
+ * Category: Dynamic Programming
  *
  * Given a string representation of the first n digits of Pi and a list of
  * positive integers (all in string format), write a function that returns
