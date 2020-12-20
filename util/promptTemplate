@@ -1,0 +1,23 @@
+import evalFunctionPerformance from '../lib/evalFunctionPerformance';
+
+/**
+ * <prompt-title>
+ *
+ * <question-description>
+ *
+ * Input:
+ * Output:
+ *
+ * Time:
+ * Space:
+ */
+function <function-name>(args: any): any {
+  // Write solution here
+}
+
+// =============================================================================
+// Tests
+// =============================================================================
+
+console.log(<function-name>(''));
+evalFunctionPerformance(<function-name>, '');
