@@ -9,6 +9,7 @@
     "no-plusplus": "off",
     "max-len": "off",
     "max-classes-per-file": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-restricted-syntax": "off"
   }
 }
