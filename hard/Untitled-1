@@ -1,0 +1,13 @@
+
+reverseLinkedList(head List):
+  | prevNode := nil
+  | node := head
+  | while node is not nil:
+  |   | tmpNext := node.next
+  |   | node.next := prevNode
+  |   | prevNode = node
+  |   | node = tmpNext
+  |   --
+  |
+  | return prevNode
+  --
