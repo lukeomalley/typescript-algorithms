@@ -191,5 +191,6 @@ const islandMatrix = [
   [1, 0, 1, 1, 0, 0],
   [1, 0, 0, 0, 0, 1],
 ];
+console.log(removeIslands(islandMatrix));
 console.log(removeIslandsTwo(islandMatrix));
 evalFunctionPerformance(removeIslandsTwo, islandMatrix);
