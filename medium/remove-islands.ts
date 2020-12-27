@@ -140,16 +140,13 @@ function findOnesConnectedToBorderTwo(matrix: number[][], i: number, j: number) 
   const stack = [[i, j]];
   while (stack.length > 0) {
     const [currentRow, currentCol] = stack.pop()!;
-    const alreadyVisited = matrix[currentRow][currentCol] === 2;
-    if (!alreadyVisited) {
-      matrix[currentRow][currentCol] = 2;
-      const neighbors = getNeighborsTwo(matrix, currentRow, currentCol);
-      neighbors.forEach(([neighborRow, neighborColumn]) => {
-        if (matrix[neighborRow][neighborColumn] === 1) {
-          stack.push([neighborRow, neighborColumn]);
-        }
-      });
-    }
+    matrix[currentRow][currentCol] = 2;
+    const neighbors = getNeighborsTwo(matrix, currentRow, currentCol);
+    neighbors.forEach(([neighborRow, neighborColumn]) => {
+      if (matrix[neighborRow][neighborColumn] === 1) {
+        stack.push([neighborRow, neighborColumn]);
+      }
+    });
   }
 }
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ts-node medium/remove-islands",
+    "test": "ts-node medium/first-duplicate-value",
     "g": "ts-node util/generatePrompt"
   },
   "author": "",
