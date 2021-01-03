@@ -37,8 +37,44 @@ import evalFunctionPerformance from '../lib/evalFunctionPerformance';
  * Space:
  */
 function validIpAddress(string: string): string[] {
-  console.log(string);
-  return [];
+  const foundIpAddress: string[] = [];
+
+  for (let i = 1; i < Math.min(string.length, 4); i++) {
+    const currentIpAddressParts = ['', '', '', ''];
+
+    currentIpAddressParts[0] = string.slice(0, i);
+    if (!valid(currentIpAddressParts[0])) {
+      continue;
+    }
+
+    for (let j = i + 1; j < Math.min(string.length - i, 4); j++) {
+      currentIpAddressParts[1] = string.slice(i, j);
+
+      if (!valid(currentIpAddressParts[1])) {
+        continue;
+      }
+
+      for (let k = j + 1; Math.min(string.length - i, 4); k++) {
+        currentIpAddressParts[2] = string.slice(j, k);
+        currentIpAddressParts[3] = string.slice(k);
+        if (valid(currentIpAddressParts[2]) && valid(currentIpAddressParts[3])) {
+          foundIpAddress.push(currentIpAddressParts.join('.'));
+        }
+      }
+    }
+  }
+
+  return foundIpAddress;
+}
+
+function valid(ipPart: string): boolean {
+  const stringAsInt = +ipPart;
+  if (stringAsInt > 255) {
+    return false;
+  }
+
+  // Check for any leading 0's
+  return ipPart.length === stringAsInt.toString().length;
 }
 
 // =============================================================================
