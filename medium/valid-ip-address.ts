@@ -33,8 +33,8 @@ import evalFunctionPerformance from '../lib/evalFunctionPerformance';
  *    "192.16.8.0"
  *  ]
  *
- * Time:
- * Space:
+ * Time: O(1) because there are only 2^32 possible IP addresses
+ * Space: O(1)
  */
 function validIpAddress(string: string): string[] {
   const foundIpAddress: string[] = [];
