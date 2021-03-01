@@ -20,13 +20,32 @@ import evalFunctionPerformance from '../lib/evalFunctionPerformance';
  * Time:
  * Space:
  */
-function longestCommonSubsequence(args: any): any {
-  // Write solution here
+function longestCommonSubsequence(str1: string, str2: string): any {
+  const lcs = Array(str2.length + 1)
+    .fill(0)
+    .map(() => {
+      return Array(str1.length + 1).fill([]);
+    });
+
+  for (let i = 1; i < str2.length + 1; i++) {
+    for (let j = 1; j < str1.length + 1; j++) {
+      if (str2[i - 1] === str1[j - 1]) {
+        lcs[i][j] = lcs[i - 1][j - 1].concat([str2[i - 1]]);
+      } else {
+        const left = lcs[i - 1][j];
+        const up = lcs[i][j - 1];
+        lcs[i][j] = left.length > up.length ? left : up;
+      }
+    }
+  }
+
+  return lcs[lcs.length - 1][lcs[0].length - 1];
 }
 
 // =============================================================================
 // Tests
 // =============================================================================
 
-console.log(longestCommonSubsequence(''));
-evalFunctionPerformance(longestCommonSubsequence, '');
+// console.log(longestCommonSubsequence('ZXVVYZW', 'XKYKZPW'));
+console.log(longestCommonSubsequence('ABCDEFG', 'APPLES'));
+// evalFunctionPerformance(longestCommonSubsequence, 'ZXVVYZW', 'XKYKZPW');
