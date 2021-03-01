@@ -1,3 +1,4 @@
+import { RSA_PKCS1_OAEP_PADDING } from 'constants';
 import evalFunctionPerformance from '../lib/evalFunctionPerformance';
 
 /**
@@ -34,37 +35,71 @@ export class LinkedList {
   }
 }
 
-export function mergeLinkedLists(headOne: LinkedList, headTwo: LinkedList) {
-  // Write your code here.
-  while (headOne.next !== null) {
-    if (!headOne.value || !headTwo.value) {
-      return headOne;
-    }
+function mergeLinkedLists(headOne: LinkedList, headTwo: LinkedList): LinkedList {
+  let p1 = headOne;
+  let p1Prev = null;
+  let p2 = headTwo;
 
-    if (headTwo.value <= headOne.value) {
-      // Merge the head of the list to merge into the list to iterate
-      const [newHeadOne, newHeadTwo] = mergeHeadTwoIntoHeadOne(headOne, headTwo);
-      headOne = newHeadOne;
-      headTwo = newHeadTwo;
-      continue;
-    }
+  while (p1 !== null && p2 !== null) {
+    if (p1.value < p2.value) {
+      p1Prev = p1;
+      p1 = p1.next!;
+    } else {
+      if (p1Prev !== null) {
+        p1Prev.next = p2;
+      }
 
-    headOne = headOne.next!;
+      p1Prev = p2;
+      p2 = p2.next!;
+      p1Prev.next = p1;
+    }
   }
 
-  return headOne;
-}
+  // Got to the end but there are nodes left in list two, append them to list one
+  if (p1 === null) {
+    p1Prev!.next = p2;
+  }
 
-function mergeHeadTwoIntoHeadOne(headOne: LinkedList, headTwo: LinkedList): [LinkedList, LinkedList] {
-  const newHeadOne = new LinkedList(headTwo.value);
-  newHeadOne.next = headOne;
-  headTwo = headTwo.next!;
-  return [newHeadOne, headTwo];
+  return headOne.value < headTwo.value ? headOne : headTwo;
 }
 
 // =============================================================================
 // Tests
 // =============================================================================
 
-console.log(mergeLinkedLists(new LinkedList(1), new LinkedList(2)));
-evalFunctionPerformance(mergeLinkedLists, new LinkedList(1), new LinkedList(2));
+const listOne = new LinkedList(2);
+listOne.next = new LinkedList(3);
+listOne.next.next = new LinkedList(6);
+listOne.next.next.next = new LinkedList(7);
+listOne.next.next.next.next = null;
+
+const listTwo = new LinkedList(1);
+listTwo.next = new LinkedList(4);
+listTwo.next.next = new LinkedList(5);
+listTwo.next.next.next = new LinkedList(8);
+listTwo.next.next.next.next = null;
+
+printList(listOne, 'List One');
+printList(listTwo, 'List Two');
+printList(mergeLinkedLists(listOne, listTwo), 'Merged List');
+// evalFunctionPerformance(mergeLinkedLists, listOne, listTwo);
+
+// =============================================================================
+// Util Funcitons
+// =============================================================================
+
+function printList(list: LinkedList, name: string) {
+  let output = '';
+
+  while (list !== null) {
+    if (!list.next) {
+      output += `${list.value}`;
+    } else {
+      output += `${list.value} --> `;
+    }
+
+    list = list.next!;
+  }
+
+  console.log(name + ': ' + output);
+}
