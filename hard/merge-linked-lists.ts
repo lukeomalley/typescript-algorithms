@@ -1,6 +1,3 @@
-import { RSA_PKCS1_OAEP_PADDING } from 'constants';
-import evalFunctionPerformance from '../lib/evalFunctionPerformance';
-
 /**
  * Merge Singly Linked Lists
  *
@@ -20,8 +17,8 @@ import evalFunctionPerformance from '../lib/evalFunctionPerformance';
  *     headTwo = 1 -> 3 -> 4 -> 5 -> 9 -> 10
  * Output: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
  *
- * Time:
- * Space:
+ * Time: O(n + m)
+ * Space: O(1)
  */
 
 // This is an input class. Do not edit.
@@ -82,7 +79,6 @@ listTwo.next.next.next.next = null;
 printList(listOne, 'List One');
 printList(listTwo, 'List Two');
 printList(mergeLinkedLists(listOne, listTwo), 'Merged List');
-// evalFunctionPerformance(mergeLinkedLists, listOne, listTwo);
 
 // =============================================================================
 // Util Funcitons
