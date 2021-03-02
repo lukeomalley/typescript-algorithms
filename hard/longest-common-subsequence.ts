@@ -46,6 +46,6 @@ function longestCommonSubsequence(str1: string, str2: string): any {
 // Tests
 // =============================================================================
 
-// console.log(longestCommonSubsequence('ZXVVYZW', 'XKYKZPW'));
+console.log(longestCommonSubsequence('ZXVVYZW', 'XKYKZPW'));
 console.log(longestCommonSubsequence('ABCDEFG', 'APPLES'));
-// evalFunctionPerformance(longestCommonSubsequence, 'ZXVVYZW', 'XKYKZPW');
+evalFunctionPerformance(longestCommonSubsequence, 'ZXVVYZW', 'XKYKZPW');
