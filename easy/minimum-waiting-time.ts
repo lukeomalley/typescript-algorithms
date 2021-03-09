@@ -18,7 +18,7 @@ import evalFunctionPerformance from '../lib/evalFunctionPerformance';
  * (0) + (5) + (5 + 1) = 11. The first query duration 5 would be executed immediately,
  * so its waiting time would be 0, the second query of duration 1 would have to wait 5
  * seconds (the duration of the first query) to be executed, and the last query would
- * have to wait the duration of the first two queries before being executed.
+ * have tr wait the duration of the first two queries before being executed.
  *
  * Input: [3, 2, 1, 2, 6]
  * Output: 17, 1 + (1 + 2) + (1 + 2 + 2) + (1 + 2 + 2 + 3)
