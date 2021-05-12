@@ -44,5 +44,5 @@ function minimumWaitingTime(queries: number[]): number {
 // =============================================================================
 
 console.log(minimumWaitingTime([17, 4, 3]));
-// console.log(minimumWaitingTime([3, 2, 1, 2, 6]));
-// evalFunctionPerformance(minimumWaitingTime, [3, 2, 1, 2, 6]);
+console.log(minimumWaitingTime([3, 2, 1, 2, 6]));
+evalFunctionPerformance(minimumWaitingTime, [3, 2, 1, 2, 6]);
