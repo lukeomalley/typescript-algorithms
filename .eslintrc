@@ -10,6 +10,9 @@
     "max-len": "off",
     "max-classes-per-file": "off",
     "no-param-reassign": "off",
-    "no-restricted-syntax": "off"
+    "no-restricted-syntax": "off",
+    "class-methods-use-this": "off",
+    "@typescript-eslint/lines-between-class-members": "off",
+    "@typescript-eslint/naming-convention": "off"
   }
 }
