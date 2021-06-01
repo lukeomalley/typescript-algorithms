@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ts-node medium/number-of-ways-to-traverse-graph.ts",
+    "test": "ts-node hard/maximum-sum-submatrix.ts",
     "g": "ts-node util/generatePrompt"
   },
   "author": "",
