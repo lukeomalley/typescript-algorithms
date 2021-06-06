@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ts-node medium/find-kth-largest-value-in-bst.ts",
+    "test": "ts-node medium/cycle-in-graph.ts",
     "g": "ts-node util/generatePrompt"
   },
   "author": "Luke O'Malley",
