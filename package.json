@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ts-node hard/find-nodes-k-distance.ts",
+    "test": "ts-node medium/find-kth-largest-value-in-bst.ts",
     "g": "ts-node util/generatePrompt"
   },
-  "author": "",
+  "author": "Luke O'Malley",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
