@@ -32,8 +32,8 @@ import evalFunctionPerformance from '../lib/evalFunctionPerformance';
  *
  * Output: [B]
  *
- * Time:
- * Space:
+ * Time: O(n)
+ * Space: O(n)
  */
 
 // This is an input class. Do not edit.
