@@ -8,6 +8,7 @@
     "@typescript-eslint/no-use-before-define": "off",
     "no-plusplus": "off",
     "max-len": "off",
+    "operator-linebreak": "off",
     "max-classes-per-file": "off",
     "no-param-reassign": "off",
     "no-restricted-syntax": "off",
